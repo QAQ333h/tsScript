@@ -6,3 +6,17 @@ let a3: Array<string> = ["hi", "ts"];
 // T[] 等价于 Array<T> 其中T表示任意类型
 // 情况1：数组中每个成员的类型相同 开发中居多
 // 情况2：数组中每个成员的类型不相同 学习中居多
+
+let n1: number = 1;
+type N1 = typeof n1;
+
+type A1 = typeof a1;
+// a1是数组
+// A1是数组的类型
+// 如何获取数组成员的类型
+console.log(a1[0]);
+const i0 = a1[0];
+type I0 = A1[0];
+type I01 = A1[0 | 1];
+type IALL = A1[number];
+// 数组变量可以通过索引取值，数组类型可以通过索引取成员类型
