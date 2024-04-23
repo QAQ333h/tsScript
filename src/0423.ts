@@ -41,7 +41,7 @@ type A9 = 1 | 2 | false | undefined | null | never;
  * 2、如何获取数组类型获取成员类型(number的妙用)
  * 3、如何判断两个数组类型的包含关系
  * 4、联合类型联合(仅为)底部类型是无效的
- * 如何定义元组类型以及添加越界元素的类型的约束
+ * 5、如何定义元组类型以及添加越界元素的类型的约束
  */
 
 // 定义一个数组 成员的类型不统一 而且长度已知（元组）
@@ -50,3 +50,11 @@ type T10 = (typeof t1)[0];  //number
 type T1All = (typeof t1)[number];   //string | number | boolean
 // 给元组添加越界元素时 类型必须是T1All
 t1.push(1)     //1|false|'xx'
+
+// 联合类型（并集） 求公共父类型
+// 交叉类型（交集） 求公共子类型
+
+type O = 1 & 2;
+type O1 = O extends 1 ? (O extends 2 ? true : false) : false;
+type P = 1 | 2;
+type P1 = 1 extends P ? (2 extends P ? true : false) : false;
