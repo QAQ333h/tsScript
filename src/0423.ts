@@ -20,3 +20,33 @@ type I0 = A1[0];
 type I01 = A1[0 | 1];
 type IALL = A1[number];
 // 数组变量可以通过索引取值，数组类型可以通过索引取成员类型
+
+// 定义一个数组 成员的类型不统一 而且长度未知
+let a4: (string | number | boolean | null | undefined)[] = [1, false, undefined];
+let a5: any[] = a4;
+
+let a6: 1[] = [1, 1, 1];
+let a7: (1 | 2)[] = [1, 2];
+type A67 = typeof a6 extends typeof a7 ? true : false;  // 前子后父 a7是否包含a6
+// 在ts中任意一个赋值表达式成立则说明存在包含关系
+// 如何判定数组类型的包含关系：
+// type X = T[]; type Y = U[];  协同变化（协变）
+// 如果T包含U 则 X包含Y
+const a8 = [1, false];
+type A8 = (typeof a8)[number];
+type A9 = 1 | 2 | false | undefined | null | never;
+/**
+ * 重点:
+ * 1、如何定义数组类型
+ * 2、如何获取数组类型获取成员类型(number的妙用)
+ * 3、如何判断两个数组类型的包含关系
+ * 4、联合类型联合(仅为)底部类型是无效的
+ * 如何定义元组类型以及添加越界元素的类型的约束
+ */
+
+// 定义一个数组 成员的类型不统一 而且长度已知（元组）
+let t1: [number, boolean, string] = [1, false, 'ZS']
+type T10 = (typeof t1)[0];  //number
+type T1All = (typeof t1)[number];   //string | number | boolean
+// 给元组添加越界元素时 类型必须是T1All
+t1.push(1)     //1|false|'xx'
